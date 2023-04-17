@@ -4,6 +4,7 @@ import { Container } from "../../styles/Container.styled";
 import { MdOutlineSaveAlt } from 'react-icons/md';
 import { Chart } from "../Chart/Chart";
 import { Doughnut } from "../Doughnut/Doughnut";
+import { TiTimes } from "react-icons/ti";
 
 
 let descrData = require("../../CommissNewWells_BarChart_description.json");
@@ -12,11 +13,11 @@ let BarDescrData = require("../../BarChart_descriptionFond.json");
 let PieChartFond = require("../../PieChartFond.json");
 let barChartData = require("../../CommissNewWells_BarChart.json");
 let barChartFond = require("../../BarChartFond.json");
-let ModalData = {
-  Добыча: [],
-  Экспорт: [],
-  'Технологические показатели':[],
-  Развитие:[]
+let modalData = {
+  Добыча: ['Нефти и газового конденсата', 'Всего', 'ВИНК', 'Независимые производители', 'СРП', 'В разрезе регионов страны', 'На новых месторождениях(гринфалдах)', 'на шельфе'],
+  Экспорт: ['Экспорт нефти из России', 'Всего', 'ВИНК', 'Независимые производители', 'СРП', 'По направлениям', 'Основные транспортные коридоры экспорта нефти'],
+  'Технологические показатели': ['Капитальные показатели ВИНК в нефтедобычу', 'Бурение', 'Ввод новых скважин', 'Закачка воды для поддержания пластового давления'],
+  Развитие: ['Магистральные нефтепроводы Российской Федерации', 'Проекты российских компаний за рубежом']
 }
 
 export const Main = () => {
@@ -34,9 +35,11 @@ export const Main = () => {
               НЕФТЯНАЯ ПРОМЫШЛЕННОСТЬ
             </Text>
             <Container margin={'20px 0 0 10px'} mw={'20px'} height={'20px'} display={'flex'} fd={'column'} onClick={() => setActiveModal(!activeModal)}>
-              <Line />
-              <Line />
-              <Line />
+              {activeModal === false ? <Container mr={'0'} >
+                <Line />
+                <Line />
+                <Line />
+              </Container> : <TiTimes />}
             </Container>
           </InnerLeft>
           <InnerRight mr={'63px'}>
@@ -53,7 +56,7 @@ export const Main = () => {
             </Text>
           </Inner>
           <Inner mt={'20px'}>
-            <Container margin={'0'} display={'flex'}>
+            <Container margin={'0 0 10px 0'} display={'flex'}>
               <Button padd={'5px 30px 5px 30px'} bc={'Всего' === statActive ? 'black' : ''} cr={'Всего' === statActive ? 'white' : ''} onClick={() => setStatActive('Всего')}>
                 Всего
               </Button>
@@ -62,6 +65,12 @@ export const Main = () => {
               </Button>
             </Container>
           </Inner>
+          <Text fs={'15px'}>
+            {statActive === 'Всего' ? 'Ввод новых скважин' : 'Фонд эксплутационных скважин'}
+          </Text>
+          <Text fs={statActive === 'Всего' ? '13px' : '10px'} color={'gray'} mr={statActive === 'Всего' ? '0 0 0 9px' : '0 0 0 5px'}>
+            скв.
+          </Text>
           <Inner mw={'55%'}>
             <Chart active={statActive} />
             <Text fs={'15px'} mr={'40px 0 0 50px'} >
@@ -120,9 +129,28 @@ export const Main = () => {
             </InnerRight>
           </Inner>
         </Container>
-        <Container>
-          <Inner >
+        <Container display={activeModal === false ? 'none' : 'block'} mw={'80%'}>
+          <Text fs={'25px'}>
             Основные тенденции и факторы
+          </Text>
+          <Inner dy={'flex'} fw={'wrap'} >
+            {Object.keys(modalData).map(item => {
+              return <Container margin={'20px 0 0 0'} mw={'45%'}>
+                <InnerLeft dy={'block'}>
+                  <Text fs={'14px'} mr={'0'}>
+                    {item}
+                  </Text>
+                  <Line bc={'gray'} wd={'100%'} />
+                  {
+                    modalData[item].map(elem => {
+                      return <Text fs={'12px'}>
+                        {elem}
+                      </Text>
+                    })
+                  }
+                </InnerLeft>
+              </Container>
+            })}
           </Inner>
         </Container>
       </Container>

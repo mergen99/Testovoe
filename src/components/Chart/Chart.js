@@ -47,8 +47,10 @@ export const Chart = ({ active }) => {
           display: false, //Is the legend shown?
           position: "top" //Position of the legend.
         },
-        tooltips: {
-          enabled: false
+        plugins: {
+          legend: {
+            display: false
+          }
         }
       }}
       data={barChartData}

@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 export const MainStyled = styled.main`
+min-height:100vh;
 `
 export const Inner = styled.div`
-display:flex;
+display:${props => props.dy || 'flex'};
 justify-content:${props => props.jc || 'space-between'};
 margin-top:${props => props.mt};
 max-width:${props => props.mw};
 margin-bottom:${props => props.mb};
+flex-wrap:${props => props.fw};
 `
 export const InnerLeft = styled.div`
 max-width:${props => props.mw || "760px"};
@@ -15,6 +17,7 @@ display:${props => props.dy || 'flex'};
 align-items:${props => props.ai || 'center'};
 max-height:${props => props.mh};
 flex-direction:${props => props.fd};
+margin:${props => props.mr};
 `
 export const InnerRight = styled.div`
 position:${props => props.pos};

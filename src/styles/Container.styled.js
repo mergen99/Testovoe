@@ -10,4 +10,5 @@ display:${props => props.display};
 flex-direction:${props => props.fd};
 position:${props => props.pos};
 min-height:${props => props.mh};
+min-width:${props => props.mw};
 `
